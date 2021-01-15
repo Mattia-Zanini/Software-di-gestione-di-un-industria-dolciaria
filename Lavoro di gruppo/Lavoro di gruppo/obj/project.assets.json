@@ -683,11 +683,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mattz\\Desktop\\Scuola\\3 superiore\\Informatica\\Lavoro di gruppo di Informatica\\Lavoro di gruppo 1\\Lavoro di gruppo\\Lavoro di gruppo.csproj",
+      "projectUniqueName": "C:\\Users\\mattz\\Documents\\GitHub\\Software-di-gestione-di-un-industria-dolciaria\\Lavoro di gruppo\\Lavoro di gruppo\\Lavoro di gruppo.csproj",
       "projectName": "Lavoro di gruppo",
-      "projectPath": "C:\\Users\\mattz\\Desktop\\Scuola\\3 superiore\\Informatica\\Lavoro di gruppo di Informatica\\Lavoro di gruppo 1\\Lavoro di gruppo\\Lavoro di gruppo.csproj",
+      "projectPath": "C:\\Users\\mattz\\Documents\\GitHub\\Software-di-gestione-di-un-industria-dolciaria\\Lavoro di gruppo\\Lavoro di gruppo\\Lavoro di gruppo.csproj",
       "packagesPath": "C:\\Users\\mattz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mattz\\Desktop\\Scuola\\3 superiore\\Informatica\\Lavoro di gruppo di Informatica\\Lavoro di gruppo 1\\Lavoro di gruppo\\obj\\",
+      "outputPath": "C:\\Users\\mattz\\Documents\\GitHub\\Software-di-gestione-di-un-industria-dolciaria\\Lavoro di gruppo\\Lavoro di gruppo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
