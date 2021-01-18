@@ -49,7 +49,9 @@ namespace Lavoro_di_gruppo
         {
             int temp = 0; //variabile a cui vengono assegnati valori temporanei
 
-            string filepath = @"C:\temp\quantitàMateriePrime.txt";//percorso del file in cui verranno salvati i file
+            string filename = @"quantitàMateriePrime.txt";
+
+            string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;//percorso del file in cui verranno salvati i file
 
             if (!File.Exists(filepath)) //questo comando serve a controllare l'esistenza del file, nel percorso prestabilito
             {
@@ -100,7 +102,9 @@ namespace Lavoro_di_gruppo
         }
         static void letturaDelFile()
         {
-            string filepath = @"C:\temp\quantitàMateriePrime.txt";
+            string filename = @"quantitàMateriePrime.txt";
+
+            string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;
 
             var data = File.ReadLines(filepath);//memorizzo in data tutti le righe
 
@@ -217,7 +221,9 @@ namespace Lavoro_di_gruppo
         }
         static void calcoli()
         {
-            string filepath = @"C:\temp\quantitàMateriePrime.txt";
+            string filename = @"quantitàMateriePrime.txt";
+
+            string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;
 
             string temp = "0";
 
