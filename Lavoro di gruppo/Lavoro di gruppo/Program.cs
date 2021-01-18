@@ -39,6 +39,8 @@ namespace Lavoro_di_gruppo
 
             calcoli();
 
+            rifornimenti();
+
             Console.ReadKey();
         }
         static void creareSpazioDiMemorizzazioneDeiDati()
@@ -144,11 +146,25 @@ namespace Lavoro_di_gruppo
 
             int numeroDiProdottiVendutiPandoro = Int32.Parse(Console.ReadLine());
 
+            while (numeroDiProdottiVendutiPandoro < 0)
+            {
+                Console.WriteLine("Devi inserire un valore maggiore o uguale a 0");
+
+                numeroDiProdottiVendutiPandoro = Int32.Parse(Console.ReadLine());
+            }
+
             double a = (costoVenditaPandoro - 3.94) * numeroDiProdottiVendutiPandoro;
 
             Console.WriteLine("Quante torte al cioccolato hai prodotto oggi?");
 
             int numeroDiProdottiVendutiTortaAlCiocciolato = Int32.Parse(Console.ReadLine());
+
+            while (numeroDiProdottiVendutiTortaAlCiocciolato < 0)
+            {
+                Console.WriteLine("Devi inserire un valore maggiore o uguale a 0");
+
+                numeroDiProdottiVendutiTortaAlCiocciolato = Int32.Parse(Console.ReadLine());
+            }
 
             double b = (costoVenditaTortaAlCioccolato - 1.47) * numeroDiProdottiVendutiTortaAlCiocciolato;
 
@@ -156,17 +172,38 @@ namespace Lavoro_di_gruppo
 
             int numeroDiProdottiVendutiBrioches = Int32.Parse(Console.ReadLine());
 
+            while (numeroDiProdottiVendutiBrioches < 0)
+            {
+                Console.WriteLine("Devi inserire un valore maggiore o uguale a 0");
+
+                numeroDiProdottiVendutiBrioches = Int32.Parse(Console.ReadLine());
+            }
+
             double c = (costoVenditaBrioches - 0.92) * numeroDiProdottiVendutiBrioches;
 
             Console.WriteLine("Quante crostate hai prodotto oggi?");
 
             int numeroDiProdottiVendutiCrostata = Int32.Parse(Console.ReadLine());
 
+            while (numeroDiProdottiVendutiCrostata < 0)
+            {
+                Console.WriteLine("Devi inserire un valore maggiore o uguale a 0");
+
+                numeroDiProdottiVendutiCrostata = Int32.Parse(Console.ReadLine());
+            }
+
             double d = (costoVenditaCrostata - 1.29) * numeroDiProdottiVendutiCrostata;
 
             Console.WriteLine("Quanti biscotti hai prodotto oggi?");
 
             int numeroDiProdottiVendutiBiscotti = Int32.Parse(Console.ReadLine());
+
+            while (numeroDiProdottiVendutiBiscotti < 0)
+            {
+                Console.WriteLine("Devi inserire un valore maggiore o uguale a 0");
+
+                numeroDiProdottiVendutiBiscotti = Int32.Parse(Console.ReadLine());
+            }
 
             double e = (costoVenditaBiscotti - 2.73) * numeroDiProdottiVendutiBiscotti;
 
@@ -237,6 +274,10 @@ namespace Lavoro_di_gruppo
             }
 
             File.WriteAllLines(filepath, materiePrimeQuant);
+        }
+        static void rifornimenti()//funzione che mi controlla se la quantità di materie nel magazzino arriva ad un punto in cui bisogna effettuare il rifornimento delle merci
+        {
+
         }
     }
 }
