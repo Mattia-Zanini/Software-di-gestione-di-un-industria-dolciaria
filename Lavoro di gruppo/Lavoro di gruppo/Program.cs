@@ -229,8 +229,6 @@ namespace Lavoro_di_gruppo
             quantitàMateriePrime[12] = quantitàMateriePrime[12] - (1.5 * produzione[4]);
             quantitàMateriePrime[2] = quantitàMateriePrime[2] - (82 * produzione[4]);
 
-
-
             for (int i = 0; i < 14; i++)
             {
                 temp = Convert.ToString(quantitàMateriePrime[i]);
