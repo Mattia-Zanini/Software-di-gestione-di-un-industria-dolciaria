@@ -9,3 +9,14 @@ C:\Users\mattz\Desktop\Informatica\Lavoro di gruppo di Informatica\Lavoro di gru
 C:\Users\mattz\Desktop\Informatica\Lavoro di gruppo di Informatica\Lavoro di gruppo\Lavoro di gruppo\bin\Debug\netcoreapp2.1\Lavoro di gruppo.pdb
 C:\Users\mattz\Desktop\Informatica\Lavoro di gruppo di Informatica\Lavoro di gruppo\Lavoro di gruppo\obj\Debug\netcoreapp2.1\Lavoro di gruppo.dll
 C:\Users\mattz\Desktop\Informatica\Lavoro di gruppo di Informatica\Lavoro di gruppo\Lavoro di gruppo\obj\Debug\netcoreapp2.1\Lavoro di gruppo.pdb
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\bin\Debug\netcoreapp2.1\Lavoro di gruppo.deps.json
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\bin\Debug\netcoreapp2.1\Lavoro di gruppo.runtimeconfig.json
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\bin\Debug\netcoreapp2.1\Lavoro di gruppo.runtimeconfig.dev.json
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\bin\Debug\netcoreapp2.1\Lavoro di gruppo.dll
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\bin\Debug\netcoreapp2.1\Lavoro di gruppo.pdb
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\obj\Debug\netcoreapp2.1\Lavoro di gruppo.csprojAssemblyReference.cache
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\obj\Debug\netcoreapp2.1\Lavoro di gruppo.csproj.CoreCompileInputs.cache
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\obj\Debug\netcoreapp2.1\Lavoro di gruppo.AssemblyInfoInputs.cache
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\obj\Debug\netcoreapp2.1\Lavoro di gruppo.AssemblyInfo.cs
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\obj\Debug\netcoreapp2.1\Lavoro di gruppo.dll
+C:\Users\mattz\Documents\GitHub\Software-di-gestione-di-un-industria-dolciaria\Lavoro di gruppo\Lavoro di gruppo\obj\Debug\netcoreapp2.1\Lavoro di gruppo.pdb
