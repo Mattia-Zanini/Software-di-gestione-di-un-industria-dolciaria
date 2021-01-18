@@ -677,23 +677,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mattz\\.nuget\\packages\\": {},
-    "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Virtual-User\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mattz\\Desktop\\Lavoro di gruppo\\Lavoro di gruppo\\Lavoro di gruppo.csproj",
+      "projectUniqueName": "C:\\Users\\Virtual-User\\Desktop\\Lavoro di gruppo\\Lavoro di gruppo\\Lavoro di gruppo.csproj",
       "projectName": "Lavoro di gruppo",
-      "projectPath": "C:\\Users\\mattz\\Desktop\\Lavoro di gruppo\\Lavoro di gruppo\\Lavoro di gruppo.csproj",
-      "packagesPath": "C:\\Users\\mattz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mattz\\Desktop\\Lavoro di gruppo\\Lavoro di gruppo\\obj\\",
+      "projectPath": "C:\\Users\\Virtual-User\\Desktop\\Lavoro di gruppo\\Lavoro di gruppo\\Lavoro di gruppo.csproj",
+      "packagesPath": "C:\\Users\\Virtual-User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Virtual-User\\Desktop\\Lavoro di gruppo\\Lavoro di gruppo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\mattz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Virtual-User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
