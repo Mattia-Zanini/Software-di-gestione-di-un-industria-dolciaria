@@ -7,11 +7,11 @@ namespace Lavoro_di_gruppo
 {
     class Program
     {
-        static public int[] quantitàMateriePrime = new int[14]; //riga "speciale", non si capisce il motivo ma bisogna inserire 1 valore in più
+        static public double[] quantitàMateriePrime = new double[14]; //riga "speciale", non si capisce il motivo ma bisogna inserire 1 valore in più
 
         static public int[] produzione = new int[5]; //array per contenere i dati sulla produzione
 
-        static public string[] materiePrime = new string[] { "farina", "uova", "burro", "lievito in polvere per dolci", "latte intero", "lievito di birra", "zucchero", "gocce di cioccolata fondente", "tuorli d'uovo", "buste di vaniglia", "confettura", "bacello di vaniglia", "bicarbonato", "miele" };
+        static public string[] materiePrime = new string[] { "farina", "uova", "burro", "lievito in polvere per dolci", "latte intero", "lievito di birra", "zucchero", "cioccolata fondente", "tuorli d'uovo", "buste di vaniglia", "confettura", "bacello di vaniglia", "bicarbonato", "miele" };
         // Farina = 0
         // Uova = 1
         // Burro = 2
@@ -19,7 +19,7 @@ namespace Lavoro_di_gruppo
         // Latte intero = 4
         // Lievito di birra = 5
         // Zucchero = 6
-        // Gocce di cioccolata fondente = 7
+        // Cioccolata fondente = 7
         // Tuorli d'uovo = 8
         // Buste di vaniglia = 9
         // Confettura = 10
@@ -36,6 +36,8 @@ namespace Lavoro_di_gruppo
             letturaDelFile();
 
             guadagnoGiornaliero();
+
+            calcoli();
 
             Console.ReadKey();
         }
@@ -94,6 +96,32 @@ namespace Lavoro_di_gruppo
                 File.WriteAllLines(filepath, materiePrimeQuant); //mi scrive sul file, definendone il percorso dove esso si trova, i dati contenuti nell'array "materiePrimeQuant"
             }
         }
+        static void letturaDelFile()
+        {
+            string filepath = @"C:\temp\quantitàMateriePrime.txt";
+
+            var data = File.ReadLines(filepath);//memorizzo in data tutti le righe
+
+            //Console.WriteLine(data.ToArray()[3]); //mi permette di leggere una riga specifica del file, convertendo "data" in un array, in questo caso scrive
+            //il dato presente alla quarta riga
+
+            int temp = 0; //variabile per copiare il valore di data, che contiene i valori di ogni riga
+
+            for (int i = 0; i < 14; i++)
+            {
+                temp = Convert.ToInt32(data.ToArray()[i]);
+
+                quantitàMateriePrime[i] = temp;
+            }
+
+            Console.WriteLine("Premi il tasto Enter per continuare");
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { } //tasto che serve per interrompere il ciclo alla pressione del tasto 'Enter'
+
+            for (int m = 0; m < 14; m++)
+            {
+                Console.WriteLine($"Hai {quantitàMateriePrime[m]} di questa materia: '{materiePrime[m]}'"); //scrivo i dati presenti nel file
+            }
+        }
         static void guadagnoGiornaliero()
         {
             int costoVenditaPandoro = 5; //prezzo in euro
@@ -101,7 +129,7 @@ namespace Lavoro_di_gruppo
             int costoVenditaTortaAlCioccolato = 5; //prezzo al pezzo
 
             int costoVenditaBrioches = 2; //prezzo al pacchetto da 300 gr, 6 brioches
-                                          //12 ml di latte intero, 2 g di lievito di birra, 95 g di farina 0, 60 g di burro, 1 uovo
+                                          // 95 g di farina 0, 12 ml di latte intero, 2 g di lievito di birra, 60 g di burro, 1 uovo
                                           //2,5 g di sale, 15 g di zucchero, 34 g d goccie di cioccolato
 
             int costoVenditaCrostata = 4; //prezzo al pezzo da 350 gr
@@ -150,31 +178,65 @@ namespace Lavoro_di_gruppo
 
             Console.Write($"Il tuo guadagno complessivo e': {a + b + c + d + e} EURO");
         }
-        static void letturaDelFile()
+        static void calcoli()
         {
             string filepath = @"C:\temp\quantitàMateriePrime.txt";
 
-            var data = File.ReadLines(filepath);//memorizzo in data tutti le righe
+            string temp = "0";
 
-            //Console.WriteLine(data.ToArray()[3]); //mi permette di leggere una riga specifica del file, convertendo "data" in un array, in questo caso scrive
-            //il dato presente alla quarta riga
+            //Pandori:
+            quantitàMateriePrime[0] = quantitàMateriePrime[0] - (450 * produzione[0]);
+            quantitàMateriePrime[5] = quantitàMateriePrime[5] - (14 * produzione[0]);
+            quantitàMateriePrime[6] = quantitàMateriePrime[6] - (180 * produzione[0]);
+            quantitàMateriePrime[1] = quantitàMateriePrime[1] - (4 * produzione[0]);
+            quantitàMateriePrime[8] = quantitàMateriePrime[8] - (34 * produzione[0]);
+            quantitàMateriePrime[13] = quantitàMateriePrime[13] - (20 * produzione[0]);
+            quantitàMateriePrime[2] = quantitàMateriePrime[2] - (185 * produzione[0]);
 
-            int temp = 0; //variabile per copiare il valore di data, che contiene i valori di ogni riga
+            //TortaAlCioccolato:
+            quantitàMateriePrime[7] = quantitàMateriePrime[7] - (75 * produzione[1]);
+            quantitàMateriePrime[0] = quantitàMateriePrime[0] - (90 * produzione[1]);
+            quantitàMateriePrime[6] = quantitàMateriePrime[6] - (90 * produzione[1]);
+            quantitàMateriePrime[1] = quantitàMateriePrime[1] - (3 * produzione[1]);
+            quantitàMateriePrime[2] = quantitàMateriePrime[2] - (100 * produzione[1]);
+            quantitàMateriePrime[3] = quantitàMateriePrime[3] - (4 * produzione[1]);
+
+            //Brioches:
+            quantitàMateriePrime[0] = quantitàMateriePrime[0] - (95 * produzione[2]);
+            quantitàMateriePrime[4] = quantitàMateriePrime[4] - (12 * produzione[2]);
+            quantitàMateriePrime[5] = quantitàMateriePrime[5] - (2 * produzione[2]);
+            quantitàMateriePrime[2] = quantitàMateriePrime[2] - (60 * produzione[2]);
+            quantitàMateriePrime[1] = quantitàMateriePrime[1] - (1 * produzione[2]);
+            quantitàMateriePrime[6] = quantitàMateriePrime[6] - (15 * produzione[2]);
+            quantitàMateriePrime[7] = quantitàMateriePrime[7] - (34 * produzione[2]);
+
+            //Crostata:
+            quantitàMateriePrime[0] = quantitàMateriePrime[0] - (95 * produzione[3]);
+            quantitàMateriePrime[2] = quantitàMateriePrime[2] - (47 * produzione[3]);
+            quantitàMateriePrime[6] = quantitàMateriePrime[6] - (37 * produzione[3]);
+            quantitàMateriePrime[1] = quantitàMateriePrime[1] - (0.3 * produzione[3]);
+            quantitàMateriePrime[8] = quantitàMateriePrime[8] - (0.6 * produzione[3]);
+            quantitàMateriePrime[9] = quantitàMateriePrime[9] - (0.3 * produzione[3]);
+            quantitàMateriePrime[3] = quantitàMateriePrime[3] - (0.6 * produzione[3]);
+            quantitàMateriePrime[10] = quantitàMateriePrime[10] - (145 * produzione[3]);
+
+            //Biscotti:
+            quantitàMateriePrime[7] = quantitàMateriePrime[7] - (45 * produzione[4]);
+            quantitàMateriePrime[0] = quantitàMateriePrime[0] - (230 * produzione[4]);
+            quantitàMateriePrime[1] = quantitàMateriePrime[1] - (1 * produzione[4]);
+            quantitàMateriePrime[6] = quantitàMateriePrime[6] - (90 * produzione[4]);
+            quantitàMateriePrime[11] = quantitàMateriePrime[11] - (0.5 * produzione[4]);
+            quantitàMateriePrime[12] = quantitàMateriePrime[12] - (1.5 * produzione[4]);
+            quantitàMateriePrime[2] = quantitàMateriePrime[2] - (82 * produzione[4]);
 
             for (int i = 0; i < 14; i++)
             {
-                temp = Convert.ToInt32(data.ToArray()[i]);
+                temp = Convert.ToString(quantitàMateriePrime[i]);
 
-                quantitàMateriePrime[i] = temp;
+                materiePrimeQuant[i] = temp;
             }
 
-            Console.WriteLine("Premi il tasto Enter per continuare");
-            while (Console.ReadKey().Key != ConsoleKey.Enter) { } //tasto che serve per interrompere il ciclo alla pressione del tasto 'Enter'
-
-            for (int m = 0; m < 14; m++)
-            {
-                Console.WriteLine($"Hai {quantitàMateriePrime[m]} di questa materia: '{materiePrime[m]}'"); //scrivo i dati presenti nel file
-            }
+            File.WriteAllLines(filepath, materiePrimeQuant);
         }
     }
 }
