@@ -28,6 +28,8 @@ namespace Lavoro_di_gruppo
         // Miele = 13
 
         static public string[] materiePrimeQuant = new string[14];//array pubblico dove poter inserire le quantità delle materie prime che successivamente verranno salvate in un file
+        static public double[] materieMaxMagazzino = new double[14];//array che contiene i dati relativi al magazzino quando è pieno
+        static public int leadTime = 0;
 
         static void Main(string[] args)
         {
@@ -53,6 +55,10 @@ namespace Lavoro_di_gruppo
 
             string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;//percorso del file in cui verranno salvati i file
 
+            string filename2 = @"materieMaxMagazzino.txt";
+
+            string filepath2 = AppDomain.CurrentDomain.BaseDirectory + filename2;
+
             if (!File.Exists(filepath)) //questo comando serve a controllare l'esistenza del file, nel percorso prestabilito
             {
                 // Creo il file, nel percorso stabilito, dove vi posso salvare i dati.
@@ -61,19 +67,22 @@ namespace Lavoro_di_gruppo
 
                 }
 
-                string kili = "KG"; //queste variabili servono per differenziare le materie che si misurano in kg dalle uova, il programma svolferà i calcoli in 'unità' per quest'ultime
+                using (StreamWriter sw = File.CreateText(filepath2))
+                {
 
-                string uni = "unità";
+                }
+
+                Console.WriteLine("E' il tuo primo accesso");
 
                 for (int i = 0; i < 14; i++)
                 {
                     if (i == 1)
                     {
-                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in {uni}");
+                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in unità");
                     }
                     else
                     {
-                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in {kili}");
+                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in KG");
                     }
 
                     temp = Int32.Parse(Console.ReadLine());//assegno a temp il valore che l'utente inserisce sulla tastiera
@@ -98,6 +107,8 @@ namespace Lavoro_di_gruppo
                 }
 
                 File.WriteAllLines(filepath, materiePrimeQuant); //mi scrive sul file, definendone il percorso dove esso si trova, i dati contenuti nell'array "materiePrimeQuant"
+
+                File.WriteAllLines(filepath2, materiePrimeQuant);
             }
         }
         static void letturaDelFile()
@@ -111,11 +122,11 @@ namespace Lavoro_di_gruppo
             //Console.WriteLine(data.ToArray()[3]); //mi permette di leggere una riga specifica del file, convertendo "data" in un array, in questo caso scrive
             //il dato presente alla quarta riga
 
-            int temp = 0; //variabile per copiare il valore di data, che contiene i valori di ogni riga
+            double temp = 0; //variabile per copiare il valore di data, che contiene i valori di ogni riga
 
             for (int i = 0; i < 14; i++)
             {
-                temp = Convert.ToInt32(data.ToArray()[i]);
+                temp = Convert.ToDouble(data.ToArray()[i]);
 
                 quantitàMateriePrime[i] = temp;
             }
@@ -125,7 +136,14 @@ namespace Lavoro_di_gruppo
 
             for (int m = 0; m < 14; m++)
             {
-                Console.WriteLine($"Hai {quantitàMateriePrime[m]} di questa materia: '{materiePrime[m]}'"); //scrivo i dati presenti nel file
+                if (m == 1)
+                {
+                    Console.WriteLine($"Hai {quantitàMateriePrime[m]} unità di questa materia: '{materiePrime[m]}'");
+                }
+                else
+                {
+                    Console.WriteLine($"Hai {quantitàMateriePrime[m] / 1000} KG di questa materia: '{materiePrime[m]}'");
+                }
             }
         }
         static void guadagnoGiornaliero()
@@ -283,7 +301,93 @@ namespace Lavoro_di_gruppo
         }
         static void rifornimenti()//funzione che mi controlla se la quantità di materie nel magazzino arriva ad un punto in cui bisogna effettuare il rifornimento delle merci
         {
+            string filename = @"quantitàMateriePrime.txt";
 
+            string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;
+
+            string filename2 = @"materieMaxMagazzino.txt";
+
+            string filepath2 = AppDomain.CurrentDomain.BaseDirectory + filename2;
+
+            var data2 = File.ReadAllLines(filepath2);
+
+            int temp = 0;
+
+            for (int i = 0; i < 14; i++)
+            {
+                temp = Convert.ToInt32(data2.ToArray()[i]);
+
+                materieMaxMagazzino[i] = temp;
+            }
+
+            if (quantitàMateriePrime[0] <= (materieMaxMagazzino[0] * 0.25))
+            {
+                Console.WriteLine("\nla farina e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[1] <= (materieMaxMagazzino[1] * 0.25))
+            {
+                Console.WriteLine("le uova sono sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[2] <= (materieMaxMagazzino[2] * 0.25))
+            {
+                Console.WriteLine("il burro e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[3] <= (materieMaxMagazzino[3] * 0.25))
+            {
+                Console.WriteLine("il ievito per dolci e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[4] <= (materieMaxMagazzino[4] * 0.25))
+            {
+                Console.WriteLine("il latte intero e' sotto il 25%");
+            }
+            if (quantitàMateriePrime[5] <= (materieMaxMagazzino[5] * 0.25))
+            {
+                Console.WriteLine("il lievito di birra e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[6] <= (materieMaxMagazzino[6] * 0.25))
+            {
+                Console.WriteLine("lo zucchero e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[7] <= (materieMaxMagazzino[7] * 0.25))
+            {
+                Console.WriteLine("la cioccolata fondente e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[8] <= (materieMaxMagazzino[8] * 0.25))
+            {
+                Console.WriteLine("il tuorlo d'uovo e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[9] <= (materieMaxMagazzino[9] * 0.25))
+            {
+                Console.WriteLine("le buste di vaniglia sono sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[10] <= (materieMaxMagazzino[10] * 0.25))
+            {
+                Console.WriteLine("la confettura e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[11] <= (materieMaxMagazzino[11] * 0.25))
+            {
+                Console.WriteLine("il bacello di vaniglia e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[12] <= (materieMaxMagazzino[12] * 0.25))
+            {
+                Console.WriteLine("il bicarbonato e' sotto il 25%");
+            }
+
+            if (quantitàMateriePrime[13] <= (materieMaxMagazzino[13] * 0.25))
+            {
+                Console.WriteLine("il miele è sotto il 25%");
+            }
         }
     }
 }
