@@ -7,10 +7,6 @@ namespace Lavoro_di_gruppo
 {
     class Program
     {
-        static public double[] quantitàMateriePrime = new double[14]; //riga "speciale", non si capisce il motivo ma bisogna inserire 1 valore in più
-
-        static public int[] produzione = new int[5]; //array per contenere i dati sulla produzione
-
         static public string[] materiePrime = new string[] { "farina", "uova", "burro", "lievito in polvere per dolci", "latte intero", "lievito di birra", "zucchero", "cioccolata fondente", "tuorli d'uovo", "buste di vaniglia", "confettura", "bacello di vaniglia", "bicarbonato", "miele" };
         // Farina = 0
         // Uova = 1
@@ -27,13 +23,27 @@ namespace Lavoro_di_gruppo
         // Bicarbonato = 12
         // Miele = 13
 
+        static public double[] quantitàMateriePrime = new double[14]; //riga "speciale", non si capisce il motivo ma bisogna inserire 1 valore in più
+
+        static public int[] produzione = new int[5]; //array per contenere i dati sulla produzione
+
         static public string[] materiePrimeQuant = new string[14];//array pubblico dove poter inserire le quantità delle materie prime che successivamente verranno salvate in un file
         static public double[] materieMaxMagazzino = new double[14];//array che contiene i dati relativi al magazzino quando è pieno
-        static public int leadTime = 0;
+
+        static public string filename = @"quantitàMateriePrime.txt"; //nome del file dove sono presenti i file della quantità delle materie prime
+
+        static public string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;//percorso del file in cui verranno salvati i file
+        //Percorso ----> "Cartella del progetto"/Lavoro di gruppo/bin/Debug/netcoreapp2.1/quantitàMateriePrime.txt
+
+        static public string filename2 = @"materieMaxMagazzino.txt"; //nome del file dove sono presenti i file della capienza massima del magazzino
+
+        static public string filepath2 = AppDomain.CurrentDomain.BaseDirectory + filename2;
+        //Percorso ----> "Cartella del progetto"/Lavoro di gruppo/bin/Debug/netcoreapp2.1/materieMaxMagazzino.txt
 
         static void Main(string[] args)
         {
-            creareSpazioDiMemorizzazioneDeiDati(); //richiamo di una funzione
+            //Richiamo le funzioni che caratterizzano il progetto
+            creareSpazioDiMemorizzazioneDeiDati();
 
             letturaDelFile();
 
@@ -51,34 +61,27 @@ namespace Lavoro_di_gruppo
         {
             int temp = 0; //variabile a cui vengono assegnati valori temporanei
 
-            string filename = @"quantitàMateriePrime.txt";
-
-            string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;//percorso del file in cui verranno salvati i file
-
-            string filename2 = @"materieMaxMagazzino.txt";
-
-            string filepath2 = AppDomain.CurrentDomain.BaseDirectory + filename2;
-
             if (!File.Exists(filepath)) //questo comando serve a controllare l'esistenza del file, nel percorso prestabilito
             {
-                // Creo il file, nel percorso stabilito, dove vi posso salvare i dati.
+                // Creo il file, nel percorso stabilito, dove vi posso salvare i dati relativi alla quantità delle materie prime che l'utente possiede
                 using (StreamWriter sw = File.CreateText(filepath))
                 {
 
                 }
 
+                // Creo il file, che mi salva i dati relativi alla capienza massima del magazzino
                 using (StreamWriter sw = File.CreateText(filepath2))
                 {
 
                 }
 
-                Console.WriteLine("E' il tuo primo accesso");
+                Console.WriteLine("E' il tuo primo accesso, i dati inseriti verranno considerati come la  dimensione massima possibile dal tuo magazzino");
 
-                for (int i = 0; i < 14; i++)
+                for (int i = 0; i < 14; i++)//ciclo che mi serve per l'inserimento dei dati sull'array
                 {
                     if (i == 1)
                     {
-                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in unità");
+                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in unità");//questo messaggio verrà mostrato a schermo per la materia "uova"
                     }
                     else
                     {
@@ -94,47 +97,37 @@ namespace Lavoro_di_gruppo
                         temp = Int32.Parse(Console.ReadLine());
                     }
 
-                    if (i == 1)
+                    if (i == 1)//non effettuo la moltiplicazione per mantenere il valoer della materia "uova" in unità
                     {
                         //non viene effettuato il calcolo solo all'elemento 1, che corrisponde alle uova
                     }
                     else
                     {
-                        temp = temp * 1000; //noi per semplicità utilizziamo i dati in grammi
+                        temp = temp * 1000; //per semplicità il programma lavora i dati in grammi
                     }
 
                     materiePrimeQuant[i] = temp.ToString();//converto i valori 'int' che ho inserito in valori stringa, per poterli scrivere sul mio file
                 }
 
-                File.WriteAllLines(filepath, materiePrimeQuant); //mi scrive sul file, definendone il percorso dove esso si trova, i dati contenuti nell'array "materiePrimeQuant"
+                File.WriteAllLines(filepath, materiePrimeQuant); //scrive sul file, definendone il percorso dove esso si trova, i dati contenuti nell'array "materiePrimeQuant"
 
-                File.WriteAllLines(filepath2, materiePrimeQuant);
+                File.WriteAllLines(filepath2, materiePrimeQuant); //scrive sul file la capienza massima del magazzino
             }
         }
         static void letturaDelFile()
         {
-            string filename = @"quantitàMateriePrime.txt";
+            var data = File.ReadLines(filepath);//memorizza in data tutti le righe
 
-            string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;
+            double temp = 0; //variabile per copiare il valore di data, che contiene i valori di ogni riga, considerando ogni riga come un elemento dell'array
 
-            var data = File.ReadLines(filepath);//memorizzo in data tutti le righe
-
-            //Console.WriteLine(data.ToArray()[3]); //mi permette di leggere una riga specifica del file, convertendo "data" in un array, in questo caso scrive
-            //il dato presente alla quarta riga
-
-            double temp = 0; //variabile per copiare il valore di data, che contiene i valori di ogni riga
-
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 14; i++) //questo ciclo serve per passare i dati del file in un array double per poterli utilizzare nei calcoli di sottrazione delle materie prime
             {
                 temp = Convert.ToDouble(data.ToArray()[i]);
 
                 quantitàMateriePrime[i] = temp;
             }
 
-            Console.WriteLine("Premi il tasto Enter per continuare");
-            while (Console.ReadKey().Key != ConsoleKey.Enter) { } //tasto che serve per interrompere il ciclo alla pressione del tasto 'Enter'
-
-            for (int m = 0; m < 14; m++)
+            for (int m = 0; m < 14; m++)//mostra quante materie si possiedono
             {
                 if (m == 1)
                 {
@@ -148,21 +141,18 @@ namespace Lavoro_di_gruppo
         }
         static void guadagnoGiornaliero()
         {
-            int costoVenditaPandoro = 5; //prezzo in euro
+            int costoVenditaPandoro = 5; //prezzo al pezzo
 
             int costoVenditaTortaAlCioccolato = 5; //prezzo al pezzo
 
-            int costoVenditaBrioches = 2; //prezzo al pacchetto da 300 gr, 6 brioches
-                                          // 95 g di farina 0, 12 ml di latte intero, 2 g di lievito di birra, 60 g di burro, 1 uovo
-                                          //2,5 g di sale, 15 g di zucchero, 34 g d goccie di cioccolato
+            int costoVenditaBrioches = 2; //prezzo al pacchetto da 300 gr, 6 brioches circa
 
             int costoVenditaCrostata = 4; //prezzo al pezzo da 350 gr
-                                          //95 g di farina 00, 47 g di burro, 37 g di zucchero semolato, 0,3 uova, 0,6 tuorli
-                                          //0,3 bustine di vaniglia, 1,7 g di sale, 0,6 g di lievito per dolci, 144 g di confettura
 
             double costoVenditaBiscotti = 3.20; //prezzo a pacchetto da 500 gr
-                                                //45 g di goccie di cioccolato, 230 g di farina 00, 1 uovo, 90 g di zucchero di canna,
-                                                //0,5 g di bacello di vaniglia, 1,5 g di bicarbonato, 2,5 g di sale, 82 g di burro
+
+            //calcoli che informano l'utente sui guadagni, calcolati in base a dei prezzi prestbiliti
+            //per ogni prodotto è presente un ciclo while che controlla se il numero inserito dall'utnte è accettabile
 
             Console.WriteLine("Quanti pandori hai prodotto oggi?");
 
@@ -229,20 +219,24 @@ namespace Lavoro_di_gruppo
 
             double e = (costoVenditaBiscotti - 2.73) * numeroDiProdottiVendutiBiscotti;
 
+            //variabile che contengono il costo di produzione di ogni prodotto
+            double f = 3.94 * numeroDiProdottiVendutiPandoro;
+            double g = 1.47 * numeroDiProdottiVendutiTortaAlCiocciolato;
+            double h = 0.92 * numeroDiProdottiVendutiBrioches;
+            double i = 1.29 * numeroDiProdottiVendutiCrostata;
+            double l = 2.73 * numeroDiProdottiVendutiBiscotti;
+
             produzione[0] = numeroDiProdottiVendutiPandoro;
             produzione[1] = numeroDiProdottiVendutiTortaAlCiocciolato;
             produzione[2] = numeroDiProdottiVendutiBrioches;
             produzione[3] = numeroDiProdottiVendutiCrostata;
             produzione[4] = numeroDiProdottiVendutiBiscotti;
 
+            Console.WriteLine($"Il costo di produzione complessivo e': {f + g + h + i + l} EURO");
             Console.Write($"Il tuo guadagno complessivo e': {a + b + c + d + e} EURO");
         }
         static void calcoli()
         {
-            string filename = @"quantitàMateriePrime.txt";
-
-            string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;
-
             string temp = "0";
 
             //Pandori:
@@ -290,25 +284,17 @@ namespace Lavoro_di_gruppo
             quantitàMateriePrime[12] = quantitàMateriePrime[12] - (1.5 * produzione[4]);
             quantitàMateriePrime[2] = quantitàMateriePrime[2] - (82 * produzione[4]);
 
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 14; i++)//sovrascrive i dati presenti nell'array
             {
                 temp = Convert.ToString(quantitàMateriePrime[i]);
 
                 materiePrimeQuant[i] = temp;
             }
 
-            File.WriteAllLines(filepath, materiePrimeQuant);
+            File.WriteAllLines(filepath, materiePrimeQuant);//aggiorno la quantità di materie presenti nel magazzino virtuale
         }
         static void rifornimenti()//funzione che mi controlla se la quantità di materie nel magazzino arriva ad un punto in cui bisogna effettuare il rifornimento delle merci
         {
-            string filename = @"quantitàMateriePrime.txt";
-
-            string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;
-
-            string filename2 = @"materieMaxMagazzino.txt";
-
-            string filepath2 = AppDomain.CurrentDomain.BaseDirectory + filename2;
-
             var data2 = File.ReadAllLines(filepath2);
 
             int temp = 0;
