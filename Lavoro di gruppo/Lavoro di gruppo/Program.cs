@@ -23,6 +23,8 @@ namespace Lavoro_di_gruppo
         // Bicarbonato = 12
         // Miele = 13
 
+        static public double[] costoMateriePrime = new double[14] { 0.85, 8, 0.30, 25, 1.44, 6.40, 0.30, 7.99, 6.60, 295, 6, 2, 2, 5.50 }; //costo al kg di ogni materia prima, presente nel programma
+
         static public double[] quantitàMateriePrime = new double[14]; //riga "speciale", non si capisce il motivo ma bisogna inserire 1 valore in più
 
         static public int[] produzione = new int[5]; //array per contenere i dati sulla produzione
@@ -79,9 +81,9 @@ namespace Lavoro_di_gruppo
 
                 for (int i = 0; i < 14; i++)//ciclo che mi serve per l'inserimento dei dati sull'array
                 {
-                    if (i == 1)
+                    if (i == 1 || i == 9 || i == 11)
                     {
-                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in unità");//questo messaggio verrà mostrato a schermo per la materia "uova"
+                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in unità");//questo messaggio verrà mostrato a schermo per la materia "uova", "bacello di vaniglia", "buste di vaniglia"
                     }
                     else
                     {
@@ -97,9 +99,9 @@ namespace Lavoro_di_gruppo
                         temp = Int32.Parse(Console.ReadLine());
                     }
 
-                    if (i == 1)//non effettuo la moltiplicazione per mantenere il valoer della materia "uova" in unità
+                    if (i == 1 || i == 9 || i == 11)//non effettuo la moltiplicazione per mantenere il valoer della materia "uova" in unità
                     {
-                        //non viene effettuato il calcolo solo all'elemento 1, che corrisponde alle uova
+                        //non viene effettuato il calcolo solo all'elemento 1, che corrisponde alle uova, al 9 e al 11, che sono rispettivamente le buste di vaniglia e il bacello di vaniglia
                     }
                     else
                     {
@@ -129,7 +131,7 @@ namespace Lavoro_di_gruppo
 
             for (int m = 0; m < 14; m++)//mostra quante materie si possiedono
             {
-                if (m == 1)
+                if (m == 1 || m == 9 || m == 11)
                 {
                     Console.WriteLine($"Hai {quantitàMateriePrime[m]} unità di questa materia: '{materiePrime[m]}'");
                 }
@@ -295,6 +297,8 @@ namespace Lavoro_di_gruppo
         }
         static void rifornimenti()//funzione che mi controlla se la quantità di materie nel magazzino arriva ad un punto in cui bisogna effettuare il rifornimento delle merci
         {
+            double costoRifornimento = 0;
+
             var data2 = File.ReadAllLines(filepath2);
 
             int temp = 0;
@@ -306,73 +310,14 @@ namespace Lavoro_di_gruppo
                 materieMaxMagazzino[i] = temp;
             }
 
-            if (quantitàMateriePrime[0] <= (materieMaxMagazzino[0] * 0.25))
+            for (int i = 0; i < 14; i++)
             {
-                Console.WriteLine("\nla farina e' sotto il 25%");
-            }
+                if (quantitàMateriePrime[i] <= (materieMaxMagazzino[i] * 0.25))
+                {
+                    Console.WriteLine($"\n la materia {materiePrime[i]} e' sotto il 25%\nDevi rifornirti");
 
-            if (quantitàMateriePrime[1] <= (materieMaxMagazzino[1] * 0.25))
-            {
-                Console.WriteLine("le uova sono sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[2] <= (materieMaxMagazzino[2] * 0.25))
-            {
-                Console.WriteLine("il burro e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[3] <= (materieMaxMagazzino[3] * 0.25))
-            {
-                Console.WriteLine("il ievito per dolci e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[4] <= (materieMaxMagazzino[4] * 0.25))
-            {
-                Console.WriteLine("il latte intero e' sotto il 25%");
-            }
-            if (quantitàMateriePrime[5] <= (materieMaxMagazzino[5] * 0.25))
-            {
-                Console.WriteLine("il lievito di birra e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[6] <= (materieMaxMagazzino[6] * 0.25))
-            {
-                Console.WriteLine("lo zucchero e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[7] <= (materieMaxMagazzino[7] * 0.25))
-            {
-                Console.WriteLine("la cioccolata fondente e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[8] <= (materieMaxMagazzino[8] * 0.25))
-            {
-                Console.WriteLine("il tuorlo d'uovo e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[9] <= (materieMaxMagazzino[9] * 0.25))
-            {
-                Console.WriteLine("le buste di vaniglia sono sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[10] <= (materieMaxMagazzino[10] * 0.25))
-            {
-                Console.WriteLine("la confettura e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[11] <= (materieMaxMagazzino[11] * 0.25))
-            {
-                Console.WriteLine("il bacello di vaniglia e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[12] <= (materieMaxMagazzino[12] * 0.25))
-            {
-                Console.WriteLine("il bicarbonato e' sotto il 25%");
-            }
-
-            if (quantitàMateriePrime[13] <= (materieMaxMagazzino[13] * 0.25))
-            {
-                Console.WriteLine("il miele è sotto il 25%");
+                }
+                Console.WriteLine($"Il costo di rifornimento è: {costoRifornimento}");
             }
         }
     }
