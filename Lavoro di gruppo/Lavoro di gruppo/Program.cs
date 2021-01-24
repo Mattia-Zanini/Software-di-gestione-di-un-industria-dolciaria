@@ -1,4 +1,7 @@
-﻿using System;
+﻿/* Autori: Mattia Zanini, Enrico Toso Paolo, Daniel Veronese
+ * 3F 2020-2021
+   Software di gestione di un industria dolciaria */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -23,7 +26,7 @@ namespace Lavoro_di_gruppo
         // Bicarbonato = 12
         // Miele = 13
 
-        static public double[] costoMateriePrime = new double[14] { 0.85, 8, 0.30, 25, 1.44, 6.40, 0.30, 7.99, 6.60, 295, 6, 2, 2, 5.50 }; //costo al kg di ogni materia prima, presente nel programma
+        static public double[] costoMateriePrime = new double[14] { 0.85, 8, 0.30, 25, 1.44, 6.40, 0.30, 7.99, 6.60, 295, 6, 2, 2, 5.50 }; //costo al kg/unità di ogni materia prima, presente nel programma
 
         static public double[] quantitàMateriePrime = new double[14]; //riga "speciale", non si capisce il motivo ma bisogna inserire 1 valore in più
 
@@ -234,8 +237,8 @@ namespace Lavoro_di_gruppo
             produzione[3] = numeroDiProdottiVendutiCrostata;
             produzione[4] = numeroDiProdottiVendutiBiscotti;
 
-            Console.WriteLine($"Il costo di produzione complessivo e': {f + g + h + i + l} EURO");
-            Console.Write($"Il tuo guadagno complessivo e': {a + b + c + d + e} EURO");
+            Console.WriteLine($"Il costo di produzione complessivo e': {f + g + h + i + l} EURO"); //costo di produzione
+            Console.Write($"Il tuo guadagno complessivo e': {a + b + c + d + e} EURO"); //guadagno
         }
         static void calcoli()
         {
@@ -314,7 +317,7 @@ namespace Lavoro_di_gruppo
             {
                 if (quantitàMateriePrime[i] <= (materieMaxMagazzino[i] * 0.25))
                 {
-                    Console.WriteLine($"\n la materia {materiePrime[i]} e' sotto il 25%\nDevi rifornirti");
+                    Console.WriteLine($"\nla materia {materiePrime[i]} e' sotto il 25%\nDevi rifornirti");
 
                 }
                 Console.WriteLine($"Il costo di rifornimento è: {costoRifornimento}");
