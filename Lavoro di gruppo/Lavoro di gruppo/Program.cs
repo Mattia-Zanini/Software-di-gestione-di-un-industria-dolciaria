@@ -35,6 +35,8 @@ namespace Lavoro_di_gruppo
         static public string[] materiePrimeQuant = new string[14];//array pubblico dove poter inserire le quantità delle materie prime che successivamente verranno salvate in un file
         static public double[] materieMaxMagazzino = new double[14];//array che contiene i dati relativi al magazzino quando è pieno
 
+        static public string[] nomiProdotti = new string[5] { "pandori", "torte", "brioches", "crostate", "biscotti" };
+
         static public string filename = @"quantitàMateriePrime.txt"; //nome del file dove sono presenti i file della quantità delle materie prime
 
         static public string filepath = AppDomain.CurrentDomain.BaseDirectory + filename;//percorso del file in cui verranno salvati i file
@@ -44,6 +46,10 @@ namespace Lavoro_di_gruppo
 
         static public string filepath2 = AppDomain.CurrentDomain.BaseDirectory + filename2;
         //Percorso ----> "Cartella del progetto"/Lavoro di gruppo/bin/Debug/netcoreapp2.1/materieMaxMagazzino.txt
+
+        static public int risposta = 0;
+
+        static public bool controllo = false;
 
         static void Main(string[] args)
         {
@@ -55,8 +61,6 @@ namespace Lavoro_di_gruppo
             guadagnoGiornaliero();
 
             calcoli();
-
-            spaccio();
 
             rifornimenti();
 
@@ -79,7 +83,7 @@ namespace Lavoro_di_gruppo
                 // Creo il file, che mi salva i dati relativi alla capienza massima del magazzino
                 using (StreamWriter sw = File.CreateText(filepath2))
                 {
-
+                    controllo = true;
                 }
 
                 Console.WriteLine("E' il tuo primo accesso, i dati inseriti verranno considerati come la  dimensione massima possibile dal tuo magazzino");
@@ -239,13 +243,75 @@ namespace Lavoro_di_gruppo
             produzione[3] = numeroDiProdottiVendutiCrostata;
             produzione[4] = numeroDiProdottiVendutiBiscotti;
 
+            spaccio();
+
             Console.WriteLine($"Il costo di produzione complessivo e': {f + g + h + i + l} EURO"); //costo di produzione
             Console.Write($"Il tuo guadagno complessivo e': {a + b + c + d + e} EURO"); //guadagno
         }
+        static void spaccio()
+        {
+            Console.WriteLine("Seleziona modalità di vendita:\nDigita 'singolo pezzo' o 'a lotti'");
+            string risposta = Console.ReadLine();
+            while (risposta != "singolo pezzo" && risposta != "a lotti")
+            {
+                Console.Write("Modalità non selezionata\nRiscrivi la tua decisione:");
+                risposta = Console.ReadLine();
+            }
+            switch (risposta)
+            {
+                case "singolo pezzo": break;
+                case "a lotti": aLotti(); break;
+            }
+        }
+        static void aLotti()
+        {
+            if (controllo == true)
+            {
+                Console.WriteLine("Da quanti pezzi è composto ogni lotto?");
+                risposta = Int32.Parse(Console.ReadLine());
+                while(risposta <= 1) //deve essere maggiore di 1 perchè sennò sarebbe a singolo pezzo
+                {
+                    Console.WriteLine("Inserisci un valore valido");
+                    risposta = Int32.Parse(Console.ReadLine());
+                }
+
+                Array.Resize(ref materieMaxMagazzino, materieMaxMagazzino.Length + 1);
+
+                materieMaxMagazzino[14] = risposta;
+
+                string[] materieMaxMagazzinoString = new string[15];
+
+                for (int i = 0; i < 15; i++)//sovrascrive i dati presenti nell'array
+                {
+                    materieMaxMagazzinoString[i] = Convert.ToString(materieMaxMagazzino[i]);
+                }
+
+                File.WriteAllLines(filepath2, materieMaxMagazzinoString);//aggiorno la quantità di materie presenti nel magazzino virtuale
+            }
+            else
+            {
+                string temp2;
+                var data = File.ReadAllLines(filepath2);
+                temp2 = data.ToArray()[14];
+                risposta = Convert.ToInt32(temp2);
+            }
+
+            int[] temp = new int[5];
+
+            for (int i = 0; i < 5; i++)
+            {
+                temp[i] = produzione[i];
+
+                while(temp[i] >= risposta)
+                {
+                    temp[i] = temp[i] - risposta;
+                }
+
+                Console.WriteLine($"Il numero di {nomiProdotti[i]} destinati allo spaccio aziendale e': {temp[i]}");
+            }
+        }
         static void calcoli()
         {
-            string temp = "0";
-
             //Pandori:
             quantitàMateriePrime[0] = quantitàMateriePrime[0] - (450 * produzione[0]);
             quantitàMateriePrime[5] = quantitàMateriePrime[5] - (14 * produzione[0]);
@@ -290,19 +356,6 @@ namespace Lavoro_di_gruppo
             quantitàMateriePrime[11] = quantitàMateriePrime[11] - (0.5 * produzione[4]);
             quantitàMateriePrime[12] = quantitàMateriePrime[12] - (1.5 * produzione[4]);
             quantitàMateriePrime[2] = quantitàMateriePrime[2] - (82 * produzione[4]);
-
-            for (int i = 0; i < 14; i++)//sovrascrive i dati presenti nell'array
-            {
-                temp = Convert.ToString(quantitàMateriePrime[i]);
-
-                materiePrimeQuant[i] = temp;
-            }
-
-            File.WriteAllLines(filepath, materiePrimeQuant);//aggiorno la quantità di materie presenti nel magazzino virtuale
-        }
-        static void spaccio()
-        {
-
         }
         static void rifornimenti()//funzione che mi controlla se la quantità di materie nel magazzino arriva ad un punto in cui bisogna effettuare il rifornimento delle merci
         {
@@ -316,7 +369,7 @@ namespace Lavoro_di_gruppo
 
             for (int i = 0; i < 14; i++)
             {
-                temp = Convert.ToDouble(data2.ToArray()[i]);
+                temp = Convert.ToInt32(data2.ToArray()[i]);
 
                 materieMaxMagazzino[i] = temp;
             }
@@ -329,7 +382,7 @@ namespace Lavoro_di_gruppo
 
                     temp = materieMaxMagazzino[i] - quantitàMateriePrime[i];
 
-                    costoRifornimento = costoRifornimento + (temp * costoMateriePrime[i]);
+                    costoRifornimento = costoRifornimento + ((temp / 1000) * costoMateriePrime[i]); //calcolo del costo di rifornimento
 
                     quantitàMateriePrime[i] = materieMaxMagazzino[i];
                 }
