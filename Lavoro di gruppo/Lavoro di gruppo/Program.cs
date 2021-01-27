@@ -56,6 +56,8 @@ namespace Lavoro_di_gruppo
 
             calcoli();
 
+            spaccio();
+
             rifornimenti();
 
             Console.ReadKey();
@@ -298,17 +300,23 @@ namespace Lavoro_di_gruppo
 
             File.WriteAllLines(filepath, materiePrimeQuant);//aggiorno la quantità di materie presenti nel magazzino virtuale
         }
+        static void spaccio()
+        {
+
+        }
         static void rifornimenti()//funzione che mi controlla se la quantità di materie nel magazzino arriva ad un punto in cui bisogna effettuare il rifornimento delle merci
         {
             double costoRifornimento = 0;
 
             var data2 = File.ReadAllLines(filepath2);
 
-            int temp = 0;
+            double temp = 0;
+
+            string temp2;
 
             for (int i = 0; i < 14; i++)
             {
-                temp = Convert.ToInt32(data2.ToArray()[i]);
+                temp = Convert.ToDouble(data2.ToArray()[i]);
 
                 materieMaxMagazzino[i] = temp;
             }
@@ -319,9 +327,24 @@ namespace Lavoro_di_gruppo
                 {
                     Console.WriteLine($"\nla materia {materiePrime[i]} e' sotto il 25%\nDevi rifornirti");
 
+                    temp = materieMaxMagazzino[i] - quantitàMateriePrime[i];
+
+                    costoRifornimento = costoRifornimento + (temp * costoMateriePrime[i]);
+
+                    quantitàMateriePrime[i] = materieMaxMagazzino[i];
                 }
-                Console.WriteLine($"Il costo di rifornimento è: {costoRifornimento}");
             }
+
+            Console.WriteLine($"Il costo di rifornimento è: {costoRifornimento} EURO");
+
+            for (int i = 0; i < 14; i++)//sovrascrive i dati presenti nell'array
+            {
+                temp2 = Convert.ToString(quantitàMateriePrime[i]);
+
+                materiePrimeQuant[i] = temp2;
+            }
+
+            File.WriteAllLines(filepath, materiePrimeQuant);//aggiorno la quantità di materie presenti nel magazzino virtuale
         }
     }
 }
