@@ -10,7 +10,7 @@ namespace Lavoro_di_gruppo
 {
     class Program
     {
-        static public string[] materiePrime = new string[] { "farina", "uova", "burro", "lievito in polvere per dolci", "latte intero", "lievito di birra", "zucchero", "cioccolata fondente", "tuorli d'uovo", "buste di vaniglia", "confettura", "bacello di vaniglia", "bicarbonato", "miele" };
+        static public string[] materiePrime = new string[] { "farina", "uova", "burro", "lievito in polvere per dolci", "latte intero", "lievito di birra", "zucchero", "cioccolata fondente", "tuorli d'uovo", "buste di vaniglia", "confettura", "bicarbonato", "miele" };
         // Farina = 0
         // Uova = 1
         // Burro = 2
@@ -22,18 +22,17 @@ namespace Lavoro_di_gruppo
         // Tuorli d'uovo = 8
         // Buste di vaniglia = 9
         // Confettura = 10
-        // Bacello di vaniglia = 11
-        // Bicarbonato = 12
-        // Miele = 13
+        // Bicarbonato = 11
+        // Miele = 12
 
-        static public double[] costoMateriePrime = new double[14] { 0.85, 8, 0.30, 25, 1.44, 6.40, 0.30, 7.99, 6.60, 295, 6, 2, 2, 5.50 }; //costo al kg/unità di ogni materia prima, presente nel programma
+        static public double[] costoMateriePrime = new double[13] { 0.34, 8, 0.30, 18, 0.35, 6, 0.30, 3, 6, 203, 2.60, 1.56, 5.50 }; //costo al kg/unità di ogni materia prima, presente nel programma, uova 8€/100 unità
 
-        static public double[] quantitàMateriePrime = new double[14]; //riga "speciale", non si capisce il motivo ma bisogna inserire 1 valore in più
+        static public double[] quantitàMateriePrime = new double[13]; //riga "speciale", non si capisce il motivo ma bisogna inserire 1 valore in più
 
         static public int[] produzione = new int[5]; //array per contenere i dati sulla produzione
 
-        static public string[] materiePrimeQuant = new string[14];//array pubblico dove poter inserire le quantità delle materie prime che successivamente verranno salvate in un file
-        static public double[] materieMaxMagazzino = new double[14];//array che contiene i dati relativi al magazzino quando è pieno
+        static public string[] materiePrimeQuant = new string[13];//array pubblico dove poter inserire le quantità delle materie prime che successivamente verranno salvate in un file
+        static public double[] materieMaxMagazzino = new double[13];//array che contiene i dati relativi al magazzino quando è pieno
 
         static public string[] nomiProdotti = new string[5] { "pandori", "torte", "brioches", "crostate", "biscotti" };
 
@@ -83,16 +82,18 @@ namespace Lavoro_di_gruppo
                 // Creo il file, che mi salva i dati relativi alla capienza massima del magazzino
                 using (StreamWriter sw = File.CreateText(filepath2))
                 {
-                    controllo = true;
+                    
                 }
+
+                controllo = true;
 
                 Console.WriteLine("E' il tuo primo accesso, i dati inseriti verranno considerati come la  dimensione massima possibile dal tuo magazzino");
 
-                for (int i = 0; i < 14; i++)//ciclo che mi serve per l'inserimento dei dati sull'array
+                for (int i = 0; i < 13; i++)//ciclo che mi serve per l'inserimento dei dati sull'array
                 {
-                    if (i == 1 || i == 9 || i == 11)
+                    if (i == 1)
                     {
-                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in unità");//questo messaggio verrà mostrato a schermo per la materia "uova", "bacello di vaniglia", "buste di vaniglia"
+                        Console.WriteLine($"Scrivimi la quantità della materia '{materiePrime[i]}' che possiedi in unità");//questo messaggio verrà mostrato a schermo per la materia "uova", "buste di vaniglia"
                     }
                     else
                     {
@@ -108,9 +109,9 @@ namespace Lavoro_di_gruppo
                         temp = Int32.Parse(Console.ReadLine());
                     }
 
-                    if (i == 1 || i == 9 || i == 11)//non effettuo la moltiplicazione per mantenere il valoer della materia "uova" in unità
+                    if (i == 1)//non effettuo la moltiplicazione per mantenere il valoer della materia "uova" in unità
                     {
-                        //non viene effettuato il calcolo solo all'elemento 1, che corrisponde alle uova, al 9 e al 11, che sono rispettivamente le buste di vaniglia e il bacello di vaniglia
+                        //non viene effettuato il calcolo solo all'elemento 1, che corrisponde alle uova, al 9 che sono le buste di vaniglia
                     }
                     else
                     {
@@ -131,16 +132,16 @@ namespace Lavoro_di_gruppo
 
             double temp = 0; //variabile per copiare il valore di data, che contiene i valori di ogni riga, considerando ogni riga come un elemento dell'array
 
-            for (int i = 0; i < 14; i++) //questo ciclo serve per passare i dati del file in un array double per poterli utilizzare nei calcoli di sottrazione delle materie prime
+            for (int i = 0; i < 13; i++) //questo ciclo serve per passare i dati del file in un array double per poterli utilizzare nei calcoli di sottrazione delle materie prime
             {
                 temp = Convert.ToDouble(data.ToArray()[i]);
 
                 quantitàMateriePrime[i] = temp;
             }
 
-            for (int m = 0; m < 14; m++)//mostra quante materie si possiedono
+            for (int m = 0; m < 13; m++)//mostra quante materie si possiedono
             {
-                if (m == 1 || m == 9 || m == 11)
+                if (m == 1)
                 {
                     Console.WriteLine($"Hai {quantitàMateriePrime[m]} unità di questa materia: '{materiePrime[m]}'");
                 }
@@ -152,17 +153,17 @@ namespace Lavoro_di_gruppo
         }
         static void guadagnoGiornaliero()
         {
-            int costoVenditaPandoro = 5; //prezzo al pezzo
+            int costoVenditaPandoro = 3; //prezzo al pezzo
 
-            int costoVenditaTortaAlCioccolato = 5; //prezzo al pezzo
+            int costoVenditaTortaAlCioccolato = 2; //prezzo al pezzo
 
-            int costoVenditaBrioches = 2; //prezzo al pacchetto da 300 gr, 6 brioches circa
+            int costoVenditaBrioches = 1; //prezzo al pacchetto da 300 gr, 6 brioches circa
 
-            int costoVenditaCrostata = 4; //prezzo al pezzo da 350 gr
+            double costoVenditaCrostata = 2.5; //prezzo al pezzo da 350 gr
 
-            double costoVenditaBiscotti = 3.20; //prezzo a pacchetto da 500 gr
+            double costoVenditaBiscotti = 1.25; //prezzo a pacchetto da 500 gr
 
-            //calcoli che informano l'utente sui guadagni, calcolati in base a dei prezzi prestbiliti
+            //calcoli che informano l'utente sui guadagni, calcolati in base a dei prezzi prestabiliti
             //per ogni prodotto è presente un ciclo while che controlla se il numero inserito dall'utnte è accettabile
 
             Console.WriteLine("Quanti pandori hai prodotto oggi?");
@@ -176,7 +177,7 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiPandoro = Int32.Parse(Console.ReadLine());
             }
 
-            double a = (costoVenditaPandoro - 3.94) * numeroDiProdottiVendutiPandoro;
+            double a = (costoVenditaPandoro - 0.87) * numeroDiProdottiVendutiPandoro;
 
             Console.WriteLine("Quante torte al cioccolato hai prodotto oggi?");
 
@@ -189,7 +190,7 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiTortaAlCiocciolato = Int32.Parse(Console.ReadLine());
             }
 
-            double b = (costoVenditaTortaAlCioccolato - 1.47) * numeroDiProdottiVendutiTortaAlCiocciolato;
+            double b = (costoVenditaTortaAlCioccolato - 0.65) * numeroDiProdottiVendutiTortaAlCiocciolato;
 
             Console.WriteLine("Quante brioches hai prodotto oggi?");
 
@@ -202,7 +203,7 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiBrioches = Int32.Parse(Console.ReadLine());
             }
 
-            double c = (costoVenditaBrioches - 0.92) * numeroDiProdottiVendutiBrioches;
+            double c = (costoVenditaBrioches - 0.15) * numeroDiProdottiVendutiBrioches;
 
             Console.WriteLine("Quante crostate hai prodotto oggi?");
 
@@ -215,7 +216,7 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiCrostata = Int32.Parse(Console.ReadLine());
             }
 
-            double d = (costoVenditaCrostata - 1.29) * numeroDiProdottiVendutiCrostata;
+            double d = (costoVenditaCrostata - 0.50) * numeroDiProdottiVendutiCrostata;
 
             Console.WriteLine("Quanti biscotti hai prodotto oggi?");
 
@@ -228,14 +229,14 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiBiscotti = Int32.Parse(Console.ReadLine());
             }
 
-            double e = (costoVenditaBiscotti - 2.73) * numeroDiProdottiVendutiBiscotti;
+            double e = (costoVenditaBiscotti - 0.35) * numeroDiProdottiVendutiBiscotti;
 
             //variabile che contengono il costo di produzione di ogni prodotto
-            double f = 3.94 * numeroDiProdottiVendutiPandoro;
-            double g = 1.47 * numeroDiProdottiVendutiTortaAlCiocciolato;
-            double h = 0.92 * numeroDiProdottiVendutiBrioches;
-            double i = 1.29 * numeroDiProdottiVendutiCrostata;
-            double l = 2.73 * numeroDiProdottiVendutiBiscotti;
+            double f = 0.87 * numeroDiProdottiVendutiPandoro;
+            double g = 0.65 * numeroDiProdottiVendutiTortaAlCiocciolato;
+            double h = 0.15 * numeroDiProdottiVendutiBrioches;
+            double i = 0.50 * numeroDiProdottiVendutiCrostata;
+            double l = 0.35 * numeroDiProdottiVendutiBiscotti;
 
             produzione[0] = numeroDiProdottiVendutiPandoro;
             produzione[1] = numeroDiProdottiVendutiTortaAlCiocciolato;
@@ -277,11 +278,11 @@ namespace Lavoro_di_gruppo
 
                 Array.Resize(ref materieMaxMagazzino, materieMaxMagazzino.Length + 1);
 
-                materieMaxMagazzino[14] = risposta;
+                materieMaxMagazzino[13] = risposta;
 
-                string[] materieMaxMagazzinoString = new string[15];
+                string[] materieMaxMagazzinoString = new string[14];
 
-                for (int i = 0; i < 15; i++)//sovrascrive i dati presenti nell'array
+                for (int i = 0; i < 14; i++)//sovrascrive i dati presenti nell'array
                 {
                     materieMaxMagazzinoString[i] = Convert.ToString(materieMaxMagazzino[i]);
                 }
@@ -292,7 +293,7 @@ namespace Lavoro_di_gruppo
             {
                 string temp2;
                 var data = File.ReadAllLines(filepath2);
-                temp2 = data.ToArray()[14];
+                temp2 = data.ToArray()[13];
                 risposta = Convert.ToInt32(temp2);
             }
 
@@ -318,7 +319,7 @@ namespace Lavoro_di_gruppo
             quantitàMateriePrime[6] = quantitàMateriePrime[6] - (180 * produzione[0]);
             quantitàMateriePrime[1] = quantitàMateriePrime[1] - (4 * produzione[0]);
             quantitàMateriePrime[8] = quantitàMateriePrime[8] - (34 * produzione[0]);
-            quantitàMateriePrime[13] = quantitàMateriePrime[13] - (20 * produzione[0]);
+            quantitàMateriePrime[12] = quantitàMateriePrime[12] - (20 * produzione[0]);
             quantitàMateriePrime[2] = quantitàMateriePrime[2] - (185 * produzione[0]);
 
             //TortaAlCioccolato:
@@ -353,8 +354,7 @@ namespace Lavoro_di_gruppo
             quantitàMateriePrime[0] = quantitàMateriePrime[0] - (230 * produzione[4]);
             quantitàMateriePrime[1] = quantitàMateriePrime[1] - (1 * produzione[4]);
             quantitàMateriePrime[6] = quantitàMateriePrime[6] - (90 * produzione[4]);
-            quantitàMateriePrime[11] = quantitàMateriePrime[11] - (0.5 * produzione[4]);
-            quantitàMateriePrime[12] = quantitàMateriePrime[12] - (1.5 * produzione[4]);
+            quantitàMateriePrime[11] = quantitàMateriePrime[11] - (1.5 * produzione[4]);
             quantitàMateriePrime[2] = quantitàMateriePrime[2] - (82 * produzione[4]);
         }
         static void rifornimenti()//funzione che mi controlla se la quantità di materie nel magazzino arriva ad un punto in cui bisogna effettuare il rifornimento delle merci
@@ -367,14 +367,14 @@ namespace Lavoro_di_gruppo
 
             string temp2;
 
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 13; i++)
             {
                 temp = Convert.ToInt32(data2.ToArray()[i]);
 
                 materieMaxMagazzino[i] = temp;
             }
 
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 13; i++)
             {
                 if (quantitàMateriePrime[i] <= (materieMaxMagazzino[i] * 0.25))
                 {
@@ -382,15 +382,22 @@ namespace Lavoro_di_gruppo
 
                     temp = materieMaxMagazzino[i] - quantitàMateriePrime[i];
 
-                    costoRifornimento = costoRifornimento + ((temp / 1000) * costoMateriePrime[i]); //calcolo del costo di rifornimento
+                    if (i == 1)
+                    {
+                        costoRifornimento = costoRifornimento + ((temp * costoMateriePrime[i]) / 100);
+                    }
+                    else
+                    {
+                        costoRifornimento = costoRifornimento + ((temp * costoMateriePrime[i]) / 1000); //calcolo del costo di rifornimento
+                    }
 
                     quantitàMateriePrime[i] = materieMaxMagazzino[i];
                 }
             }
 
-            Console.WriteLine($"Il costo di rifornimento è: {costoRifornimento} EURO");
+            Console.WriteLine($"\nIl costo di rifornimento è: {costoRifornimento} EURO");
 
-            for (int i = 0; i < 14; i++)//sovrascrive i dati presenti nell'array
+            for (int i = 0; i < 13; i++)//sovrascrive i dati presenti nell'array
             {
                 temp2 = Convert.ToString(quantitàMateriePrime[i]);
 
