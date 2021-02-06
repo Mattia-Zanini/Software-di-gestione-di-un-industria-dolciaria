@@ -177,7 +177,7 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiPandoro = Int32.Parse(Console.ReadLine());
             }
 
-            double a = (costoVenditaPandoro - 0.87) * numeroDiProdottiVendutiPandoro;
+            double guadagnoPandoro = (costoVenditaPandoro - 0.87) * numeroDiProdottiVendutiPandoro;
 
             Console.WriteLine("Quante torte al cioccolato hai prodotto oggi?");
 
@@ -190,7 +190,7 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiTortaAlCiocciolato = Int32.Parse(Console.ReadLine());
             }
 
-            double b = (costoVenditaTortaAlCioccolato - 0.65) * numeroDiProdottiVendutiTortaAlCiocciolato;
+            double guadagnoTorte = (costoVenditaTortaAlCioccolato - 0.65) * numeroDiProdottiVendutiTortaAlCiocciolato;
 
             Console.WriteLine("Quante brioches hai prodotto oggi?");
 
@@ -203,7 +203,7 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiBrioches = Int32.Parse(Console.ReadLine());
             }
 
-            double c = (costoVenditaBrioches - 0.15) * numeroDiProdottiVendutiBrioches;
+            double guadagnoBrioches = (costoVenditaBrioches - 0.15) * numeroDiProdottiVendutiBrioches;
 
             Console.WriteLine("Quante crostate hai prodotto oggi?");
 
@@ -216,7 +216,7 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiCrostata = Int32.Parse(Console.ReadLine());
             }
 
-            double d = (costoVenditaCrostata - 0.50) * numeroDiProdottiVendutiCrostata;
+            double guadagnoCrostate = (costoVenditaCrostata - 0.50) * numeroDiProdottiVendutiCrostata;
 
             Console.WriteLine("Quanti biscotti hai prodotto oggi?");
 
@@ -229,15 +229,16 @@ namespace Lavoro_di_gruppo
                 numeroDiProdottiVendutiBiscotti = Int32.Parse(Console.ReadLine());
             }
 
-            double e = (costoVenditaBiscotti - 0.35) * numeroDiProdottiVendutiBiscotti;
+            double guadagnoBiscotti = (costoVenditaBiscotti - 0.35) * numeroDiProdottiVendutiBiscotti;
 
             //variabile che contengono il costo di produzione di ogni prodotto
-            double f = 0.87 * numeroDiProdottiVendutiPandoro;
-            double g = 0.65 * numeroDiProdottiVendutiTortaAlCiocciolato;
-            double h = 0.15 * numeroDiProdottiVendutiBrioches;
-            double i = 0.50 * numeroDiProdottiVendutiCrostata;
-            double l = 0.35 * numeroDiProdottiVendutiBiscotti;
+            double costoProduzionePandoro = 0.87 * numeroDiProdottiVendutiPandoro;
+            double costoProduzioneTorte = 0.65 * numeroDiProdottiVendutiTortaAlCiocciolato;
+            double costoProduzioneBrioches = 0.15 * numeroDiProdottiVendutiBrioches;
+            double costoProduzioneCrostate = 0.50 * numeroDiProdottiVendutiCrostata;
+            double costoProduzioneBiscotti = 0.35 * numeroDiProdottiVendutiBiscotti;
 
+            //salva la quantità di prodotti fabbricati, in un giorno
             produzione[0] = numeroDiProdottiVendutiPandoro;
             produzione[1] = numeroDiProdottiVendutiTortaAlCiocciolato;
             produzione[2] = numeroDiProdottiVendutiBrioches;
@@ -246,17 +247,17 @@ namespace Lavoro_di_gruppo
 
             spaccio();
 
-            Console.WriteLine($"Il costo di produzione complessivo e': {f + g + h + i + l} EURO"); //costo di produzione
-            Console.Write($"Il tuo guadagno complessivo e': {a + b + c + d + e} EURO"); //guadagno
+            Console.WriteLine($"Il costo di produzione complessivo e': {costoProduzionePandoro + costoProduzioneTorte + costoProduzioneBrioches + costoProduzioneCrostate + costoProduzioneBiscotti} EURO"); //costo di produzione
+            Console.Write($"Il tuo guadagno complessivo e': {guadagnoPandoro + guadagnoTorte + guadagnoBrioches + guadagnoCrostate + guadagnoBiscotti} EURO"); //guadagno
         }
-        static void spaccio()
+        static void spaccio()//funzione che gestisce lo spaccio
         {
             Console.WriteLine("Seleziona modalità di vendita:\nDigita 'singolo pezzo' o 'a lotti'");
-            string risposta = Console.ReadLine();
-            while (risposta != "singolo pezzo" && risposta != "a lotti")
+            string risposta = Console.ReadLine();//prendo in ingresso la risposta dell'utente
+            while (risposta != "singolo pezzo" && risposta != "a lotti")//controlla che l'utente non abbia mandato in input risposte differenti rispetto alle uniche 2 possibili
             {
                 Console.Write("Modalità non selezionata\nRiscrivi la tua decisione:");
-                risposta = Console.ReadLine();
+                risposta = Console.ReadLine();//ripropone la domanda nel caso l'utente abbia scritto qualcos'altro di differente rispetto a quello chiesto
             }
             switch (risposta)
             {
@@ -264,7 +265,7 @@ namespace Lavoro_di_gruppo
                 case "a lotti": aLotti(); break;
             }
         }
-        static void aLotti()
+        static void aLotti()//funzione che viene eseguita nel caso l'utente voglia vendere a lotti i propri prodotti
         {
             if (controllo == true)
             {
@@ -276,7 +277,7 @@ namespace Lavoro_di_gruppo
                     risposta = Int32.Parse(Console.ReadLine());
                 }
 
-                Array.Resize(ref materieMaxMagazzino, materieMaxMagazzino.Length + 1);
+                Array.Resize(ref materieMaxMagazzino, materieMaxMagazzino.Length + 1);//aumenta l'array di 1 per inserire la risposta dell'utente nel file, salvandola
 
                 materieMaxMagazzino[13] = risposta;
 
@@ -292,14 +293,14 @@ namespace Lavoro_di_gruppo
             else
             {
                 string temp2;
-                var data = File.ReadAllLines(filepath2);
-                temp2 = data.ToArray()[13];
+                var data = File.ReadAllLines(filepath2);//leggo i dati presenti nell'array
+                temp2 = data.ToArray()[13];//preleva unicamente la risposta dell'utente, salvata la prima volta dell'avvio del programma
                 risposta = Convert.ToInt32(temp2);
             }
 
             int[] temp = new int[5];
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)//calcola i prodotti in eccesso, che verranno venduti allo spaccio
             {
                 temp[i] = produzione[i];
 
@@ -311,7 +312,7 @@ namespace Lavoro_di_gruppo
                 Console.WriteLine($"Il numero di {nomiProdotti[i]} destinati allo spaccio aziendale e': {temp[i]}");
             }
         }
-        static void calcoli()
+        static void calcoli()//funzione che sottrae le materie utilizzate per fabbricare i prodotti dal magazzino
         {
             //Pandori:
             quantitàMateriePrime[0] = quantitàMateriePrime[0] - (450 * produzione[0]);
@@ -361,7 +362,7 @@ namespace Lavoro_di_gruppo
         {
             double costoRifornimento = 0;
 
-            var data2 = File.ReadAllLines(filepath2);
+            var data2 = File.ReadAllLines(filepath2);//preleva i dati dal file
 
             double temp = 0;
 
@@ -376,7 +377,7 @@ namespace Lavoro_di_gruppo
 
             for (int i = 0; i < 13; i++)
             {
-                if (quantitàMateriePrime[i] <= (materieMaxMagazzino[i] * 0.25))
+                if (quantitàMateriePrime[i] <= (materieMaxMagazzino[i] * 0.25))//controlla se le materie presenti nel magazzino siano al di sotto o al 25% rispetto alla massima capienza
                 {
                     Console.WriteLine($"\nla materia {materiePrime[i]} e' sotto il 25%\nDevi rifornirti");
 
@@ -384,7 +385,7 @@ namespace Lavoro_di_gruppo
 
                     if (i == 1)
                     {
-                        costoRifornimento = costoRifornimento + ((temp * costoMateriePrime[i]) / 100);
+                        costoRifornimento = costoRifornimento + ((temp * costoMateriePrime[i]) / 100);//calcolo differrente per le uovo, in unità
                     }
                     else
                     {
